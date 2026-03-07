@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What is Retrieval-Augmented Generation (RAG)?",
+    "ground_truth": "RAG is a technique that combines information retrieval with text generation. Instead of relying solely on a language model's pre-trained knowledge, RAG first retrieves relevant documents from an external knowledge base and then uses those documents as context for generating answers.",
+    "expected_sources": ["rag_overview.md"]
+  },
+  {
+    "question": "What are the three main components of a RAG system?",
+    "ground_truth": "The three main components are: 1) Document Ingestion (loading, splitting, and storing documents), 2) Retrieval (searching indexed documents to find relevant chunks), and 3) Generation (using retrieved documents as context for a language model to generate answers).",
+    "expected_sources": ["rag_overview.md"]
+  },
+  {
+    "question": "What is hybrid retrieval and why is it used?",
+    "ground_truth": "Hybrid retrieval combines dense (vector) and sparse (BM25) retrieval methods. BM25 excels at exact keyword matching and handling rare terms, while dense retrieval excels at understanding semantic meaning and paraphrases. By combining both, the system achieves higher recall and precision than either method alone.",
+    "expected_sources": ["rag_overview.md"]
+  },
+  {
+    "question": "How does cross-encoder reranking improve retrieval?",
+    "ground_truth": "Cross-encoder reranking improves precision by taking each query-document pair as input, computing a relevance score using a transformer that sees both texts simultaneously, and reordering documents by this more accurate relevance score. Cross-encoders are more accurate than bi-encoders because they perform full attention between the query and document.",
+    "expected_sources": ["rag_overview.md"]
+  },
+  {
+    "question": "What is Reciprocal Rank Fusion (RRF)?",
+    "ground_truth": "Reciprocal Rank Fusion (RRF) is a strategy for combining rankings from multiple retrieval methods. It combines rankings using reciprocal rank scores, typically with the formula: score(d) = sum of weight_i / (k + rank_i(d)).",
+    "expected_sources": ["rag_overview.md"]
+  },
+  {
+    "question": "What document loaders does LangChain provide?",
+    "ground_truth": "LangChain provides several document loaders including PyPDFLoader for PDF files, TextLoader for plain text files, UnstructuredMarkdownLoader for Markdown files, WebBaseLoader for web URLs, and CSVLoader for CSV files.",
+    "expected_sources": ["langchain_guide.md"]
+  },
+  {
+    "question": "What is LangChain Expression Language (LCEL)?",
+    "ground_truth": "LCEL is a declarative way to compose chains in LangChain. It uses the pipe operator (|) for sequential composition, supports parallel execution with RunnableParallel, enables branching with RunnableBranch, and all components implement the Runnable interface with invoke, batch, and stream methods.",
+    "expected_sources": ["langchain_guide.md"]
+  },
+  {
+    "question": "What does the faithfulness metric measure in RAG evaluation?",
+    "ground_truth": "Faithfulness measures whether the generated answer is factually consistent with the retrieved context. A faithful answer only contains claims that can be supported by the retrieved documents. A high score means all claims are supported, while a low score means the answer contains fabricated or unsupported claims.",
+    "expected_sources": ["evaluation_metrics.md"]
+  },
+  {
+    "question": "What is the difference between context precision and context recall?",
+    "ground_truth": "Context precision measures what fraction of retrieved documents are actually relevant to the question, while context recall measures what fraction of the information needed to answer the question was successfully retrieved. High precision means focused retrieval without noise, while high recall means all necessary information was found.",
+    "expected_sources": ["evaluation_metrics.md"]
+  },
+  {
+    "question": "How is RAG evaluation integrated into CI/CD pipelines?",
+    "ground_truth": "RAG evaluation is integrated into CI/CD by: 1) Running the evaluation suite against a golden dataset on every PR, 2) Comparing scores against baseline thresholds, 3) Failing the PR if any metric drops below threshold, and 4) Generating a report showing metric scores over time. This prevents code changes from silently degrading system quality.",
+    "expected_sources": ["evaluation_metrics.md"]
+  },
+  {
+    "question": "What are the best practices for using LangChain?",
+    "ground_truth": "Best practices include: 1) Use structured outputs when possible for reliable parsing, 2) Implement retry logic for API calls to handle transient failures, 3) Monitor token usage to control costs, 4) Cache embeddings to avoid redundant API calls, and 5) Use streaming for better user experience with long responses.",
+    "expected_sources": ["langchain_guide.md"]
+  },
+  {
+    "question": "Why do traditional language models need RAG?",
+    "ground_truth": "Traditional language models have several limitations: knowledge cutoff (they are only trained up to a certain date), hallucination (they may generate plausible-sounding but incorrect information), and domain specificity (general-purpose models may lack deep knowledge in specialized domains). RAG addresses these by grounding responses in actual retrieved documents.",
+    "expected_sources": ["rag_overview.md"]
+  }
+]

@@ -1,0 +1,44 @@
+# Core LangChain
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-community>=0.3.0
+langchain-core>=0.3.0
+
+# Vector Store
+chromadb>=0.5.0
+
+# BM25 Keyword Search
+rank-bm25>=0.2.2
+
+# Cross-Encoder Reranking
+cohere>=5.0.0
+
+# Embeddings / Tokenization
+tiktoken>=0.7.0
+
+# Document Loaders
+pypdf>=4.0.0
+unstructured>=0.15.0
+markdown>=3.0.0
+
+# API
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# UI
+streamlit>=1.38.0
+
+# Evaluation
+ragas>=0.2.0
+datasets>=3.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+httpx>=0.27.0
