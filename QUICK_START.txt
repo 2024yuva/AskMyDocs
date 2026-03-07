@@ -1,98 +1,70 @@
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                    🚀 AskMyDocs - QUICK START GUIDE                          ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════╗
+║                    📚 ASK MY DOCS - QUICK START                  ║
+╚══════════════════════════════════════════════════════════════════╝
 
-⚠️  IMPORTANT: Your OpenAI API key has exceeded its quota!
+🎯 WHAT IS THIS?
+   Chat with your documents using AI! Upload PDFs, Markdown, or text
+   files and ask questions. Get accurate answers with source citations.
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ STEP 0: Fix Your API Key (REQUIRED)                                         │
-└──────────────────────────────────────────────────────────────────────────────┘
+💡 TECHNOLOGY USED:
+   ✓ Groq API (FREE Llama 3.3 70B) - LLM generation
+   ✓ Sentence-Transformers (FREE) - Local embeddings
+   ✓ Cohere (FREE tier) - Reranking
+   ✓ LangChain - RAG pipeline
+   ✓ FastAPI - Backend API
+   ✓ Streamlit - Web UI
+   ✓ ChromaDB - Vector database
+   ✓ BM25 - Keyword search
 
-Option A: Add Credits to Existing Key
-  1. Visit: https://platform.openai.com/account/billing
-  2. Add payment method
-  3. Add credits ($5 minimum recommended)
-  
-Option B: Get New API Key
-  1. Visit: https://platform.openai.com/api-keys
-  2. Create new key
-  3. Edit .env file and replace OPENAI_API_KEY value
+🚀 HOW TO RUN:
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ STEP 1: Ingest Documents                                                    │
-└──────────────────────────────────────────────────────────────────────────────┘
+   Step 1: Install dependencies (first time only)
+   ─────────────────────────────────────────────
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
 
-  📁 Double-click: ingest_docs.bat
-  
-  This will process the 3 markdown files in docs/ folder
-  ⏱️  Takes ~30 seconds
+   Step 2: Configure API keys
+   ─────────────────────────────────────────────
+   Edit .env file and add your Groq API key:
+   GROQ_API_KEY=your_key_here
+   
+   Get FREE key at: https://console.groq.com/keys
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ STEP 2: Start API Server                                                    │
-└──────────────────────────────────────────────────────────────────────────────┘
+   Step 3: Run the project
+   ─────────────────────────────────────────────
+   Double-click: RUN_PROJECT.bat
+   
+   Or in terminal: .\RUN_PROJECT.bat
 
-  🖥️  Double-click: start_api.bat
-  
-  API will run at: http://localhost:8000
-  Keep this window open!
+   Step 4: Use the application
+   ─────────────────────────────────────────────
+   Open browser: http://localhost:8501
+   
+   1. Upload documents (sidebar)
+   2. Click "🔄 Ingest Documents"
+   3. Ask questions in chat!
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ STEP 3: Start Streamlit UI                                                  │
-└──────────────────────────────────────────────────────────────────────────────┘
+📁 PROJECT STRUCTURE:
+   RUN_PROJECT.bat     ← Run this to start!
+   README.md           ← Full documentation
+   .env                ← Your API keys
+   requirements.txt    ← Dependencies
+   app/                ← Application code
+   docs/               ← Put your documents here
+   tests/              ← Test suite
+   eval/               ← Evaluation pipeline
 
-  🎨 Double-click: start_ui.bat
-  
-  Browser will open automatically at: http://localhost:8501
-  Keep this window open too!
+🔧 TROUBLESHOOTING:
+   • API won't start? Check if port 8000 is in use
+   • Ingestion fails? Verify Groq API key in .env
+   • No answers? Make sure you ingested documents first
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ STEP 4: Use the Application                                                 │
-└──────────────────────────────────────────────────────────────────────────────┘
+📚 MORE INFO:
+   • Full docs: README.md
+   • API docs: http://localhost:8000/docs
+   • GitHub: https://github.com/2024yuva/AskMyDocs
 
-  In the Streamlit UI:
-  
-  ✅ Upload your own documents (PDF, MD, TXT)
-  ✅ Click "Ingest Documents" to process them
-  ✅ Ask questions in the chat interface
-  ✅ View citations and source documents
-  
-  Example questions:
-  • "What is RAG?"
-  • "How does hybrid retrieval work?"
-  • "Explain cross-encoder reranking"
-
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                           📊 BONUS COMMANDS                                  ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-
-Run Tests:
-  📁 Double-click: run_tests.bat
-  ✅ All 30 tests should pass
-
-Run Evaluation:
-  Open terminal and run: python eval/evaluate.py
-  📈 Computes quality metrics on golden dataset
-
-Test API Health:
-  Open browser: http://localhost:8000/health
-  Or: http://localhost:8000/docs (API documentation)
-
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                         🆘 TROUBLESHOOTING                                   ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-
-❌ "Insufficient quota" error
-   → Add credits to your OpenAI account
-
-❌ "Cannot reach API" in UI
-   → Make sure start_api.bat is running
-
-❌ "No documents ingested"
-   → Run ingest_docs.bat first
-
-❌ Port already in use
-   → Close other instances or change port
-
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                    📖 MORE INFO: Read RUN_PROJECT.md                         ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+═══════════════════════════════════════════════════════════════════
+Made with ❤️ by 2024yuva | 100% FREE APIs | No credit card needed!
+═══════════════════════════════════════════════════════════════════

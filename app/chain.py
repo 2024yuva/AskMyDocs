@@ -1,15 +1,16 @@
 """
-RAG chain: hybrid retrieve → rerank → format with citations → LLM → parse.
+RAG chain using FREE Groq API instead of OpenAI.
+Hybrid retrieve → rerank → format with citations → LLM → parse.
 """
 
 import logging
 import re
 from typing import List, Dict, Any
 
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_core.documents import Document
 
-from app.config import OPENAI_API_KEY, LLM_MODEL, LLM_TEMPERATURE, RETRIEVER_K, RERANK_TOP_N
+from app.config import GROQ_API_KEY, LLM_MODEL, LLM_TEMPERATURE, RETRIEVER_K, RERANK_TOP_N
 from app.retriever import HybridRetriever, rerank
 from app.prompts import RAG_PROMPT, format_docs_with_citations
 
@@ -18,18 +19,18 @@ logger = logging.getLogger(__name__)
 
 class RAGChain:
     """
-    Full RAG pipeline:
+    Full RAG pipeline with FREE Groq API:
     1. Hybrid retrieval (BM25 + Vector via RRF)
     2. Cross-encoder reranking (Cohere)
-    3. Citation-enforced generation (OpenAI)
+    3. Citation-enforced generation (Groq/Llama)
     """
 
     def __init__(self):
         self.retriever = HybridRetriever()
-        self.llm = ChatOpenAI(
+        self.llm = ChatGroq(
             model=LLM_MODEL,
             temperature=LLM_TEMPERATURE,
-            openai_api_key=OPENAI_API_KEY,
+            groq_api_key=GROQ_API_KEY,
         )
 
     def invoke(self, question: str) -> Dict[str, Any]:
@@ -56,7 +57,7 @@ class RAGChain:
         # Step 3: Format context with citation markers
         formatted_context = format_docs_with_citations(reranked_docs)
 
-        # Step 4: Generate answer
+        # Step 4: Generate answer with Groq
         chain = RAG_PROMPT | self.llm
         response = chain.invoke({
             "context": formatted_context,

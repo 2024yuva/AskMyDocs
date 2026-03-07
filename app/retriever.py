@@ -1,5 +1,6 @@
 """
-Retrieval layer: BM25, Vector, Hybrid (ensemble), and Cross-Encoder Reranking.
+Retrieval layer using FREE HuggingFace embeddings:
+BM25, Vector, Hybrid (ensemble), and Cross-Encoder Reranking.
 """
 
 import pickle
@@ -8,12 +9,10 @@ from typing import List, Optional
 
 import cohere
 from langchain_core.documents import Document
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 
 from app.config import (
-    OPENAI_API_KEY,
-    EMBEDDING_MODEL,
     COHERE_API_KEY,
     RERANK_MODEL,
     CHROMA_DIR,
@@ -29,16 +28,18 @@ logger = logging.getLogger(__name__)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# Vector Retriever
+# Vector Retriever (using FREE HuggingFace embeddings)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class VectorRetriever:
-    """Semantic search against ChromaDB."""
+    """Semantic search against ChromaDB using FREE sentence-transformers."""
 
     def __init__(self):
-        embeddings = OpenAIEmbeddings(
-            model=EMBEDDING_MODEL,
-            openai_api_key=OPENAI_API_KEY,
+        # Use FREE HuggingFace embeddings
+        embeddings = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={'device': 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
         )
         self.vectorstore = Chroma(
             collection_name=CHROMA_COLLECTION,
@@ -54,7 +55,7 @@ class VectorRetriever:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# BM25 Retriever
+# BM25 Retriever (unchanged - no API needed)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class BM25Retriever:
@@ -94,7 +95,7 @@ class BM25Retriever:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# Hybrid Retriever (Ensemble)
+# Hybrid Retriever (unchanged)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class HybridRetriever:
@@ -155,7 +156,7 @@ class HybridRetriever:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# Cross-Encoder Reranker (Cohere)
+# Cross-Encoder Reranker (unchanged - Cohere)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def rerank(query: str, documents: List[Document], top_n: int = RERANK_TOP_N) -> List[Document]:

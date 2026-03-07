@@ -1,8 +1,8 @@
 """
-Document ingestion pipeline.
+Document ingestion pipeline using FREE sentence-transformers for embeddings.
 
 Loads documents from the docs/ folder, splits them into chunks,
-embeds them into ChromaDB, and builds a BM25 index for keyword search.
+embeds them using sentence-transformers (FREE), and builds a BM25 index.
 """
 
 import pickle
@@ -17,13 +17,11 @@ from langchain_community.document_loaders import (
     UnstructuredMarkdownLoader,
 )
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
 
 from app.config import (
-    OPENAI_API_KEY,
-    EMBEDDING_MODEL,
     DOCS_DIR,
     CHROMA_DIR,
     BM25_INDEX_PATH,
@@ -91,10 +89,12 @@ def _split_documents(documents: List[Document]) -> List[Document]:
 
 
 def _build_vector_store(chunks: List[Document]) -> Chroma:
-    """Embed chunks and persist to ChromaDB."""
-    embeddings = OpenAIEmbeddings(
-        model=EMBEDDING_MODEL,
-        openai_api_key=OPENAI_API_KEY,
+    """Embed chunks using FREE HuggingFace embeddings and persist to ChromaDB."""
+    # Use sentence-transformers - completely FREE!
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        model_kwargs={'device': 'cpu'},
+        encode_kwargs={'normalize_embeddings': True}
     )
 
     vectorstore = Chroma.from_documents(
@@ -129,10 +129,10 @@ def _build_bm25_index(chunks: List[Document]) -> None:
 
 def ingest_documents(docs_dir: Path = DOCS_DIR) -> dict:
     """
-    Full ingestion pipeline:
+    Full ingestion pipeline using FREE embeddings:
     1. Load documents from disk
     2. Split into chunks
-    3. Build ChromaDB vector store
+    3. Build ChromaDB vector store (with sentence-transformers)
     4. Build BM25 keyword index
 
     Returns summary dict with counts.
@@ -147,7 +147,7 @@ def ingest_documents(docs_dir: Path = DOCS_DIR) -> dict:
     # Split
     chunks = _split_documents(documents)
 
-    # Build vector store
+    # Build vector store with FREE embeddings
     _build_vector_store(chunks)
 
     # Build BM25 index
@@ -157,7 +157,7 @@ def ingest_documents(docs_dir: Path = DOCS_DIR) -> dict:
         "status": "success",
         "doc_count": len(documents),
         "chunk_count": len(chunks),
-        "message": f"Ingested {len(documents)} documents into {len(chunks)} chunks",
+        "message": f"Ingested {len(documents)} documents into {len(chunks)} chunks (using FREE embeddings)",
     }
 
 

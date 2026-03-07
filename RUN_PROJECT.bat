@@ -10,7 +10,7 @@ taskkill /F /IM uvicorn.exe 2>nul
 timeout /t 2
 echo.
 echo Step 2: Starting API server (Groq version)...
-start "API Server" cmd /k "cd /d %~dp0 && call venv\Scripts\activate.bat && uvicorn app.api.main_groq:app --reload --port 8000"
+start "API Server" cmd /k "cd /d %~dp0 && call venv\Scripts\activate.bat && uvicorn app.api.main:app --reload --port 8000"
 timeout /t 5
 echo.
 echo Step 3: Starting Streamlit UI...

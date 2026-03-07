@@ -1,5 +1,6 @@
 """
-FastAPI application with /ask, /ingest, and /health endpoints.
+FastAPI application using FREE Groq API.
+Endpoints: /ask, /ingest, and /health
 """
 
 import logging
@@ -28,18 +29,19 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    logger.info("🚀 Ask My Docs API starting up")
+    logger.info("🚀 Ask My Docs API starting up (FREE Groq version)")
     yield
     logger.info("👋 Ask My Docs API shutting down")
 
 
 app = FastAPI(
-    title="Ask My Docs",
+    title="Ask My Docs (FREE)",
     description=(
         "Production RAG API with hybrid retrieval (BM25 + vector), "
-        "cross-encoder reranking, and citation enforcement."
+        "cross-encoder reranking, and citation enforcement. "
+        "Using FREE Groq API and sentence-transformers!"
     ),
-    version="1.0.0",
+    version="1.0.0-groq",
     lifespan=lifespan,
 )
 
@@ -58,14 +60,14 @@ app.add_middleware(
 @app.get("/health", response_model=HealthResponse, tags=["System"])
 async def health_check():
     """Health check endpoint."""
-    return HealthResponse()
+    return HealthResponse(version="1.0.0-groq")
 
 
 @app.post("/ingest", response_model=IngestResponse, tags=["Ingestion"])
 async def ingest_docs():
     """
     Trigger document ingestion from the docs/ folder.
-    Loads, chunks, embeds, and indexes all supported documents.
+    Uses FREE sentence-transformers for embeddings!
     """
     try:
         result = ingest_documents(DOCS_DIR)
@@ -79,7 +81,7 @@ async def ingest_docs():
 async def ask_question(request: AskRequest):
     """
     Ask a question against the ingested documents.
-    Returns an answer with inline citations and source documents.
+    Uses FREE Groq API (Llama 3.3) for generation!
     """
     try:
         result = rag_ask(request.question)

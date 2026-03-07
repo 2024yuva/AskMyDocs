@@ -1,6 +1,7 @@
 # Core LangChain
 langchain>=0.3.0
 langchain-openai>=0.2.0
+langchain-groq>=0.2.0
 langchain-community>=0.3.0
 langchain-core>=0.3.0
 
@@ -15,6 +16,8 @@ cohere>=5.0.0
 
 # Embeddings / Tokenization
 tiktoken>=0.7.0
+sentence-transformers>=2.2.0
+torch>=2.0.0
 
 # Document Loaders
 pypdf>=4.0.0
