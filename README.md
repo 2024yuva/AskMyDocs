@@ -75,8 +75,12 @@ User Question
 - **100% FREE** — Uses Groq API (free) and local embeddings (no API costs!)
 - **Easy Setup** — One-click run with `RUN_PROJECT.bat`
 
-# Here's quick video of my project works
+# Here's quick view of my project works
 <img width="1919" height="966" alt="image" src="https://github.com/user-attachments/assets/d9b3bfcd-dd70-4963-9dc5-7abb39cfd180" />
+<img width="1256" height="603" alt="image" src="https://github.com/user-attachments/assets/b52e9752-fca7-49de-af4e-d514f002ef75" />
+<img width="1257" height="587" alt="image" src="https://github.com/user-attachments/assets/4068ed04-94aa-422c-8652-fb10d4603f5f" />
+<img width="1251" height="604" alt="image" src="https://github.com/user-attachments/assets/4ce81322-db01-4123-aafd-28faa56e85fa" />
+<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/2a9da19f-a89e-4d1d-a7f1-6345314ca859" />
 
 
 ## Quick Start (Windows)
