@@ -75,6 +75,10 @@ User Question
 - **100% FREE** — Uses Groq API (free) and local embeddings (no API costs!)
 - **Easy Setup** — One-click run with `RUN_PROJECT.bat`
 
+# Here's quick video of my project works
+<img width="1919" height="966" alt="image" src="https://github.com/user-attachments/assets/d9b3bfcd-dd70-4963-9dc5-7abb39cfd180" />
+
+
 ## Quick Start (Windows)
 
 ### Prerequisites
