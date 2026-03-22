@@ -8,7 +8,7 @@
 # Create virtual environment
 python -m venv venv
 
-# Activate it
+# Activate it for windows
 venv\Scripts\activate
 
 # Install all dependencies
